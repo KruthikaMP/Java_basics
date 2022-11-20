@@ -1,0 +1,20 @@
+Nov 20, 2022 12:47:36 PM _221047003.Studentarray addStudent
+INFO: Adding new student record
+Nov 20, 2022 12:47:47 PM _221047003.Studentarray addStudent
+INFO: Adding new student record
+Nov 20, 2022 12:48:03 PM _221047003.Studentarray addStudent
+INFO: Adding new student record
+Nov 20, 2022 12:48:05 PM _221047003.Studentarray viewStudent
+INFO: Viewing student records
+Nov 20, 2022 12:48:11 PM _221047003.Studentarray searchStudent
+INFO: Searching student record
+Nov 20, 2022 12:48:19 PM _221047003.Studentarray deleteStudent
+INFO: Deleting student record
+Nov 20, 2022 12:48:33 PM _221047003.Studentarray updateStudent
+INFO: Updating student record
+Nov 20, 2022 12:48:33 PM _221047003.Studentarray updateStudent
+INFO: Record updated
+Nov 20, 2022 12:49:03 PM _221047003.Studentarray deleteStudent
+INFO: Deleting student record
+Nov 20, 2022 12:49:03 PM _221047003.Studentarray deleteStudent
+INFO: Record not found
