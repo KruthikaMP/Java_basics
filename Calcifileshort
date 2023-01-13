@@ -1,0 +1,65 @@
+package _221047003;
+public interface Myoperations {
+public int add(int a, int b);
+/** Returns a-b */
+public int subtract(int a, int b);
+/** Returns a*b */
+public int multiply(int a, int b);
+/** Returns a/b */
+public int divide(int a, int b);
+}
+package _221047003;
+public class Calculator implements Myoperations {
+public int add(int a, int b) {
+ System.out.println("ICalculator - add " + a + " and " + b+"\n"+ (a+b));
+ return a+b;
+ }
+public int subtract(int a, int b) {
+ System.out.println("ICalculator - subtract " + a +" and "+ b +"\n"+ (a-b));
+ return a-b;
+}
+public int multiply(int a, int b) {
+ System.out.println("ICalculator - multiply " + a + " and " + b+"\n"+ (a*b));
+ return a*b;
+}
+ public int divide(int a, int b)
+ {
+ System.out.println("ICalculator - Divide " + a + " and " + b+"\n"+ (a/b));
+ return a/b;
+}
+}
+package _221047003;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
+public class Test {
+public static void main(String args[]) {
+try
+{
+FileWriter fw = new FileWriter("C:\\Users\\vivek\\OneDrive\\Desktop\\Kruthi\\output.txt", 
+true);
+ BufferedWriter pw = new BufferedWriter(fw);
+Calculator c=new Calculator();
+c.add(6,6);
+pw.write("\n"+"Operation 1: Adding two numbers 6,6 and the result is 12");
+c.subtract(6,6);
+pw.write("\n"+"Operation 2: Subtracting two numbers 6,6 and the result is 0");
+c.multiply(6,6);
+pw.write("\n"+"Operation 3: Multiplying two numbers 6,6 and the result is 36");
+c.divide(6,6);
+pw.write("\n"+"Operation 4: Dividing two numbers 6,6 and the result is 1");
+ pw.flush();
+ fw.close();
+ pw.close(); 
+ System.out.println("Output Written to file");
+}
+catch(IOException e)
+ {
+ e.printStackTrace();
+ }
+}
+}
