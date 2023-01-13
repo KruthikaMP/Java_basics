@@ -1,0 +1,84 @@
+package CC221047011;
+
+
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+
+
+public class Test {
+    void copyToFile(String name,int ID, double grade, int age, String Address, boolean isPassed) throws IOException
+    {
+        File f1= new File("StudentDetails_221047011.txt");
+        if (f1.createNewFile())
+         {
+            System.out.println("File created: " + f1.getName());
+         }
+        else
+         {
+            System.out.println("File already exists.");
+         }
+         FileWriter myWriter = new FileWriter("StudentDetails_221047011.txt",true);
+         myWriter.write("Name          ID          Grade          Age          Address          Pass/Fail\n");
+         myWriter.write(name+"          "+ID+"          "+grade+"          "+age+"          "+Address+"          "+isPassed);
+         myWriter.write("\n-----------------------------------------------------------\n");
+         myWriter.close();
+    }
+    public static void main(String[] args) throws IOException {
+        // TODO Auto-generated method stub
+        Scanner sc = new Scanner(System.in);
+        Grad g = new Grad();
+        UnderGrad ug =new UnderGrad();
+        Test t= new Test();
+        
+        System.out.println("Enter the Grad student Details:\n");
+        System.out.println("Enter the Student Name:\t");
+        g.name=sc.next();
+        System.out.println("Enter the Student ID:\t");
+        g.ID=sc.nextInt();
+        System.out.println("Enter the Student Grade:\t");
+        g.grade=sc.nextDouble();
+        System.out.println("Enter the Student Age:\t");
+        g.age=sc.nextInt();
+        System.out.println("Enter the Address:\t");
+        g.Address=sc.next();
+        System.out.println(g.isPassed(g.grade));
+        System.out.println("\n-------------------------------------\n");
+        try {
+            t.copyToFile(g.name,g.ID,g.grade,g.age,g.Address,g.isPassed(g.grade));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        System.out.println("Enter the UnderGrad student Details:\n");
+        System.out.print("Enter the Student Name:\t");
+        ug.name=sc.next();
+        System.out.println("Enter the Student ID:\t");
+        ug.ID=sc.nextInt();
+        System.out.println("Enter the Student Grade:\t");
+        ug.grade=sc.nextDouble();
+        System.out.println("Enter the Student Age:\t");
+        ug.age=sc.nextInt();
+        System.out.println("Enter the Address:\t");
+        ug.Address=sc.next();
+        System.out.println(ug.isPassed(ug.grade));
+        t.copyToFile(ug.name,ug.ID,ug.grade,ug.age,ug.Address,ug.isPassed(ug.grade));
+        }
+    }
+
+
+=========================================================================================
+package CC221047011;
+
+
+
+public interface Qualifiable {
+    double X=70;
+    double Y=65;
+
+
+
+}
