@@ -1,0 +1,142 @@
+package mypkg_221047011;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Scanner;
+
+public class Databaseclass {
+    static Connection connection;
+    public static void main(String[] args)throws Exception {
+    	
+        String connectionUrl = "jdbc:sqlserver://172.16.51.44;" +
+        "databaseName=221047016;integratedSecurity=false;user=akshay;password=nayak@543";
+        connection = DriverManager.getConnection(connectionUrl); 
+        
+        String sql="create table Products"+"(PID integer,Productname varchar(100),Productunitprice float,Quantities integer, PRIMARY KEY(PID))"; 
+        PreparedStatement preparedStatement=connection.prepareStatement(sql);
+        
+        //Execute the query
+        int n=preparedStatement.executeUpdate();
+        if(n==1) {
+            System.out.println("table not created");
+        }
+        else {
+            System.out.println("table created");
+        }
+        preparedStatement.close();
+        connection.close();
+        
+        Productimpl p=new Productimpl();
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter your choice 1.insert 2.delete 3.display");
+        int  n1=sc.nextInt();
+        if(n1==1) {
+            p.insertvalues();
+        }
+        else if(n1==2) {
+            p.deletevalues();
+        }
+        else if(n1==3) {
+            p.displayval();
+        }
+    }
+}
+
+
+==================================================================================================================
+package mypkg_221047011;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+ 
+
+class Productimpl {
+    static Connection connection;
+void insertvalues() throws SQLException, ClassNotFoundException 
+{
+    Scanner sc=new Scanner(System.in);
+
+    String connectionUrl = "jdbc:sqlserver://172.16.51.44;" +
+            "databaseName=221047016;integratedSecurity=false;user=akshay;password=nayak@543";
+    connection = DriverManager.getConnection(connectionUrl);
+
+ 
+
+    String sql="insert into Products values (?,?,?,?)"; 
+    PreparedStatement preparedStatement=connection.prepareStatement(sql);
+    
+    System.out.println("Enter PID");
+    int pid=sc.nextInt();
+    preparedStatement.setInt(1, pid);
+    
+    System.out.println("Enter Product name");
+    String pname=sc.next();
+    preparedStatement.setString(2,pname);
+    
+    System.out.println("Enter Price");
+    float price=sc.nextFloat();
+    preparedStatement.setFloat(3,price);
+    
+    System.out.println("Enter Quantity");
+    int quantity=sc.nextInt();
+    preparedStatement.setInt(4,quantity);
+    
+    //Execute the query
+    int n=preparedStatement.executeUpdate();
+    if(n==1) {
+    System.out.println("record inserted");
+    }
+    else {
+    System.out.println("record not inserted");
+    }
+    //closing
+    preparedStatement.close();
+    connection.close();
+    }
+
+void deletevalues() throws SQLException, ClassNotFoundException{
+    Scanner sc=new Scanner(System.in);
+   
+    String connectionUrl = "jdbc:sqlserver://172.16.51.44;" +
+            "databaseName=221047016;integratedSecurity=false;user=akshay;password=nayak@543";
+    connection = DriverManager.getConnection(connectionUrl);
+    
+    String sql="Delete from Products where PID=?";
+    PreparedStatement preparedStatement=connection.prepareStatement(sql);
+    System.out.println("Enter PID to delete Product");
+    int delpid=sc.nextInt();
+    preparedStatement.setInt(1,delpid);l
+    int n=preparedStatement.executeUpdate();
+    if(n==1) {
+    System.out.println("deleted");
+    }
+    else {
+        System.out.println("not deleted");
+    }
+    preparedStatement.close();
+    connection.close();
+}
+void displayval() throws SQLException, ClassNotFoundException {
+    Scanner sc=new Scanner(System.in);
+          
+    String connectionUrl = "jdbc:sqlserver://172.16.51.44;" +
+            "databaseName=221047016;integratedSecurity=false;user=akshay;password=nayak@543";
+    connection = DriverManager.getConnection(connectionUrl);
+    String sql="Select * from Products";
+    PreparedStatement preparedStatement=connection.prepareStatement(sql);
+    ResultSet resultSet=preparedStatement.executeQuery();
+    while(resultSet.next()) {
+    System.out.println(resultSet.getInt("PID")+" "+resultSet.getString("Productname")+" "+resultSet.getFloat("Productunitprice")+" "+resultSet.getInt("Quantities"));
+    }
+    resultSet.close();
+    preparedStatement.close();
+    connection.close();
+    }
+}
