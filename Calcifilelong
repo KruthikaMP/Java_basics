@@ -1,0 +1,125 @@
+package mypkg_221047011;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+import java.io.FileReader;
+import java.io.FileWriter;
+
+interface MyOperations{
+    public String add(int a, int b);
+    public String subtract(int a, int b);
+    public String multiply(int a, int b);
+    public String division(int a, int b);
+} 
+
+public class Calci implements MyOperations {
+	public static void main(String[] args) throws InputMismatchException
+	{
+	        Calci cal = new Calci();       
+	        try {
+	            Scanner sc = new Scanner(System.in);
+	            System.out.println("For addition select 1");
+	            System.out.println("For subtraction select 2");
+	            System.out.println("For multiply select 3");
+	            System.out.println("For division select 4");
+	            System.out.println("Enter your choice here :  ");
+	            int c = sc.nextInt();
+	            
+	            System.out.println("Enter first number : ");
+	            char x = (char) sc.nextInt();
+	            System.out.println("Enter second number: ");
+	            char y = (char) sc.nextInt();
+	            String data = null;
+	          
+	            switch(c) {
+	            case 1:
+	                data = cal.add(x, y);
+	                break;
+	            case 2:
+	                data = cal.subtract(x, y);
+	                break;
+	            case 3: 
+	             	data = cal.multiply(x, y);
+	                break;
+	            case 4:
+	            	data = cal.division(x, y);
+	                break;
+	             default : System.out.println("Invalid input");
+	            }
+	            try
+	            {
+		    		
+		    		int i; 
+		    		String s = null;
+		    		//Saving user data with file without loosing old data
+		    		FileWriter wr = new FileWriter("data.txt", true);
+		            wr.write(data);
+		            wr.write("\n");
+		            wr.close();
+		            /*FileReader rd = new FileReader("data.txt");
+		            while((i=rd.read())!=-1) 
+		            {
+		                s += (char)i;
+		            }
+		            System.out.println(s);
+		            rd.close();*/
+		    	}
+		    	catch(Exception e){
+		    		System.out.println("File dosnt exist ");
+		    	}
+	      
+		    }
+		    catch(InputMismatchException e)
+	        {
+				// show if value is invalid.
+				System.out.println("Invalid Input...");
+			}
+			catch(ArithmeticException e)
+	        {
+				// show when number is divided by 0.
+				System.out.println("Error:Divide By ZERO");
+			}
+
+	}
+	      
+	    public int a;
+	    public int b;
+	    public String data;
+
+
+
+	   public String add(int a, int b) 
+	   {
+		   try 
+		   {
+			   data = "Adding " + a + " and " + b + " = " + (a+b)+"\n";
+			   System.out.println(data);
+	       }
+		   catch(Exception e) 
+		   {
+			   System.out.println("Error Occuured");
+	    		return "Error";
+		   }
+		   return data;
+	   }
+
+	   public String subtract(int a, int b) 
+	   {
+	        data = "Subtracting " + a + " and " + b + " = " + (a-b)+"\n";
+	        System.out.println(data);
+	        return data;
+	   }
+
+	   	public String multiply(int a, int b) 
+	   	{
+		    data ="Multiplying " + a + " and " + b+ " = " + (a*b)+"\n";
+	        System.out.println(data);
+	        return data;        
+	   }
+	    
+	    public String division(int a, int b) 
+	    {
+	        data ="Dividing " + a + " by " + b+ " = " + (a/b)+"\n";
+	        System.out.println(data);
+	          return data;  
+	    }
+	}
