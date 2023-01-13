@@ -1,3 +1,9 @@
+module Practice12 {
+	requires java.sql;
+	requires java.logging;
+}
+
+
 package mypkg_221047011;
 
 import java.sql.Connection;
