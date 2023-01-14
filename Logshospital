@@ -1,0 +1,361 @@
+package _221047003;
+
+import org.apache.log4j.Logger;
+import java.io.*;
+import java.util.*;
+
+
+/* Hospital Management System Project  */
+
+class doctor
+{
+    String did, dname, specilist, visit_time, doc_qual;
+    int droom;
+    void new_doctor()
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.print("id:-");
+        did = input.nextLine();
+        System.out.print("name:-");
+        dname = input.nextLine();
+        System.out.print("specilization:-");
+        specilist = input.nextLine();
+        System.out.print("work time:-");
+        visit_time = input.nextLine();
+        System.out.print("qualification:-");
+        doc_qual = input.nextLine();
+        System.out.print("room no.:-");
+        droom = input.nextInt();
+        
+    }
+}
+class patient
+{
+    String pid, pname, disease, sex;
+    int age;
+    void new_patient()
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.print("id:-");
+        pid = input.nextLine();
+        System.out.print("name:-");
+        pname = input.nextLine();
+        System.out.print("disease:-");
+        disease = input.nextLine();
+        System.out.print("sex:-");
+        sex = input.nextLine();
+        System.out.print("age:-");
+        age = input.nextInt();
+    }
+}
+class medical
+{
+    String med_name, med_comp, exp_date;
+    int cost, count;
+	
+    void new_medicine()
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.print("name:-");
+        med_name = input.nextLine();
+        System.out.print("comp:-");
+        med_comp = input.nextLine();
+        System.out.print("exp_date:-");
+        exp_date = input.nextLine();
+        System.out.print("cost:-");
+        cost = input.nextInt();
+        
+    }
+}
+class facilities
+{
+    String facility_name;
+    int f_cost;
+    void new_facility()
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.print("facility:-");
+        facility_name = input.nextLine();
+        System.out.print("cost:-");
+        f_cost = input.nextInt();
+    }
+}
+public class HospitalManagement{
+	
+	static Logger log = Logger.getLogger(HospitalManagement.class.getName()); 
+
+	
+	//method for writting the Doctor details to file 
+	static void  copyTofile_doctor(String did, String dname, String specilist, String visit_time, String doc_qual, int droom) {
+		try {
+			FileWriter myWritter = new FileWriter("C:\\Users\\vivek\\OneDrive\\Desktop\\Java\\Hospital\\Doctor_details.txt",true);
+			myWritter.write(did+ "\t "  +dname+ "\t " +specilist+ "\t\t " +visit_time+ "\t " +doc_qual+ "\t\t "+droom+"  \n");
+			log.debug(did+ "  Doctor data added successfully.");
+			myWritter.close();
+		} catch (Exception e) {
+			System.out.println("An error occurred.");
+			log.error("Doctor details File not found");
+		}
+	}
+	
+	//method for writting the Patient details to file 
+	static void  copyTofile_patient(String pid, String pname, String disease, String sex,int age) {
+		try {
+			FileWriter myWritter = new FileWriter("C:\\\\Users\\\\vivek\\\\OneDrive\\\\Desktop\\\\Java\\\\Hospital\\\\Patient_details.txt",true);
+			myWritter.write(pid+ "\t "  +pname+ " \t            " +disease+ "\t " +sex+"     "+age+" \n");
+		    log.debug(pid+ "  patient data added successfully.");
+			myWritter.close();
+		} catch (Exception e) {
+			System.out.println("An error occurred.");
+			log.error("Patient details File not found");
+		}
+	}
+	
+	//method for writting the Pharmacy details to file 
+	static void  copyTofile_pharmacy(String med_name, String med_comp, String exp_date, int cost) {
+		try {
+			FileWriter myWritter = new FileWriter("C:\\\\Users\\\\vivek\\\\OneDrive\\\\Desktop\\\\Java\\\\Hospital\\\\Pharmacy_details.txt",true);
+			myWritter.write(med_name+ "\t "  +med_comp+ "\t " +exp_date+ "\t "+cost+" \n");
+		    log.debug(med_name+ " added successfully.");
+			myWritter.close();
+		} catch (Exception e) {
+			System.out.println("An error occurred.");
+			log.error("pharmacy details File not found");
+		}
+	}
+	
+	//method for writting the Facility details to file 
+	static void  copyTofile_facility(String facility_name, int f_cost) {
+		try {
+			FileWriter myWritter = new FileWriter("C:\\\\Users\\\\vivek\\\\OneDrive\\\\Desktop\\\\Java\\\\Hospital\\\\Facility_details.txt",true);
+			myWritter.write(facility_name+ "\t\t\t"+f_cost+" \n");
+			log.debug(facility_name+ " added successfully.");
+			myWritter.close();
+		} catch (Exception e) {
+			System.out.println("An error occurred.");
+			log.error("facility details File not found");
+		}
+	}
+
+    public static void main(String args[])
+    {
+        //System.out.println("--------------------------------------------------------------------------------");
+        int count1 = 0, count2 = 0, count3 = 0, count4 = 0;
+        System.out.println("\n--------------------------------------------------------------------------------");
+        System.out.println("            *** Welcome to Hospital Management System Project in Java ***");
+        System.out.println("--------------------------------------------------------------------------------");
+        
+        doctor[] d = new doctor[25];
+        patient[] p = new patient[100];
+        facilities[] l = new facilities[20];
+        medical[] m = new medical[100];
+      
+        int i;
+        for (i = 0; i < 25; i++)
+            d[i] = new doctor();
+        for (i = 0; i < 100; i++)
+            p[i] = new patient();
+        for (i = 0; i < 20; i++)
+            l[i] = new facilities();
+        for (i = 0; i < 100; i++)
+            m[i] = new medical();
+
+               
+
+        Scanner input = new Scanner(System.in);
+        int choice, j, c1, status = 1, s1 = 1, s2 = 1, s3 = 1, s4 = 1;
+        while (status == 1)
+        {
+            System.out.println("\n                                    MAIN MENU");
+            System.out.println("-----------------------------------------------------------------------------------");
+            System.out.println("1.Doctors  2. Patients  3.Pharmacy  4.Facilities " );
+            System.out.println("-----------------------------------------------------------------------------------");
+            choice = input.nextInt();
+            switch (choice)
+            {
+                case 1:
+                    {
+                        System.out.println("--------------------------------------------------------------------------------");
+                        System.out.println("                      **DOCTOR SECTION**");
+                        System.out.println("--------------------------------------------------------------------------------");
+                        s1 = 1;
+                        while (s1 == 1)
+                        {
+                            
+                            
+                            System.out.println("1.Add New Entry\n2.Existing Doctors List");
+                            c1 = input.nextInt();
+                            switch (c1)
+                            {
+                                
+                                case 1:
+                                    {
+                                    	doctor D = new doctor();
+                                     
+                                        D.new_doctor();
+                                        copyTofile_doctor(D.did, D.dname, D.specilist, D.visit_time, D.doc_qual, D.droom);
+                                        count1++;
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                  	  try {
+                                            File myObj = new File("C:\\\\Users\\\\vivek\\\\OneDrive\\\\Desktop\\\\Java\\\\Hospital\\\\Doctor_details.txt");
+                                            Scanner myReader = new Scanner(myObj);
+                                            while (myReader.hasNextLine()) {
+                                              String data = myReader.nextLine();
+                                              System.out.println(data);
+                                            }
+                                            myReader.close();
+                                          } catch (FileNotFoundException e) {
+                                            System.out.println("An error occurred.");
+                                            log.error("Doctor_details.txt File not found ");
+                                            
+                                          }
+                                      
+                                        break;
+                                    }
+                            }
+                            System.out.println("\nReturn to Back Press 1 and for Main Menu Press 0");
+                            s1 = input.nextInt();
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        System.out.println("--------------------------------------------------------------------------------");
+                        System.out.println("                     **PATIENT SECTION**");
+                        System.out.println("--------------------------------------------------------------------------------");
+                        s2 = 1;
+                        while (s2 == 1)
+                        {
+                            System.out.println("1.Add New Entry\n2.Existing Patients List");
+                            c1 = input.nextInt();
+                            switch (c1)
+                            {
+                                case 1:
+                                    {
+                                        patient P = new patient();
+                                        P.new_patient();
+                                        copyTofile_patient(P.pid, P.pname, P.disease, P.sex, P.age);
+                                        count2++;
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        try {
+                                            File myObj = new File("C:\\\\Users\\\\vivek\\\\OneDrive\\\\Desktop\\\\Java\\\\Hospital\\\\Patient_details.txt");
+                                            Scanner myReader = new Scanner(myObj);
+                                            while (myReader.hasNextLine()) {
+                                              String data = myReader.nextLine();
+                                              System.out.println(data);
+                                            }
+                                            myReader.close();
+                                          } catch (FileNotFoundException e) {
+                                            System.out.println("An error occurred.");
+                                            log.error("Patient_details.txt File not found ");
+                                          }
+                                        break;
+                                    }
+                            }
+                            System.out.println("\nReturn to Back Press 1 and for Main Menu Press 0");
+                            s2 = input.nextInt();
+                        }
+                        break;
+                    }
+                case 3:
+                    {
+                        s3 = 1;
+                        System.out.println("--------------------------------------------------------------------------------");
+                        System.out.println("                     **PHARMACY SECTION**");
+                        System.out.println("--------------------------------------------------------------------------------");
+                        while (s3 == 1)
+                        {
+                            System.out.println("1.Add New Entry\n2. Existing Medicines List");
+                            c1 = input.nextInt();
+                            switch (c1)
+                            {
+                                case 1:
+                                    {
+                                    	medical M = new medical();
+                                        
+                                        M.new_medicine();
+                                        copyTofile_pharmacy(M.med_name, M.med_comp, M.exp_date, M.cost);
+                                        count3++;
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                    	  try {
+                                              File myObj = new File("C:\\\\Users\\\\vivek\\\\OneDrive\\\\Desktop\\\\Java\\\\Hospital\\\\Pharmacy_details.txt");
+                                              Scanner myReader = new Scanner(myObj);
+                                              while (myReader.hasNextLine()) {
+                                                String data = myReader.nextLine();
+                                                System.out.println(data);
+                                              }
+                                              myReader.close();
+                                            } catch (FileNotFoundException e) {
+                                              System.out.println("An error occurred.");
+                                              log.error("Pharmacy_details.txt File not found ");
+                                              
+                                            }
+                                        break;
+                                    }
+                            }
+                            System.out.println("\nReturn to Back Press 1 and for Main Menu Press 0");
+                            s3 = input.nextInt();
+                        }
+                        break;
+                    }
+                case 4:
+                    {
+                        s4 = 1;
+                        System.out.println("--------------------------------------------------------------------------------");
+                        System.out.println("                    **FACILITIES SECTION**");
+                        System.out.println("--------------------------------------------------------------------------------");
+                        while (s4 == 1)
+                        {
+                            System.out.println("1.Add New Entry \n2.Existing Facilities List");
+                            c1 = input.nextInt();
+                            switch (c1)
+                            {
+                                case 1:
+                                    {
+                                        facilities F = new facilities();
+                                        F.new_facility();
+                                        copyTofile_facility(F.facility_name,F.f_cost);
+                                        count4++;
+                                        break;
+                                    }
+                                case 2:
+                                {
+                                        try {
+                                            File myObj = new File("C:\\\\Users\\\\vivek\\\\OneDrive\\\\Desktop\\\\Java\\\\Hospital\\\\Facility_details.txt");
+                                            Scanner myReader = new Scanner(myObj);
+                                            while (myReader.hasNextLine()) {
+                                              String data = myReader.nextLine();
+                                              System.out.println(data);
+                                            }
+                                            myReader.close();
+                                          } catch (FileNotFoundException e) {
+                                            System.out.println("An error occurred.");
+                                            log.error("Facility_details.txt File not found ");
+                                          }
+                                        break;
+                                    }
+                            }
+                            System.out.println("\nReturn to Back Press 1 and for Main Menu Press 0");
+                            s4 = input.nextInt();
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        System.out.println(" You Have Enter Wrong Choice!!!");
+                    }
+            }
+            System.out.println("\nReturn to MAIN MENU Press 1");
+            status = input.nextInt();
+        }
+    }
+}
