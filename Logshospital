@@ -1,3 +1,12 @@
+path=jdbc:sqlserver://172.16.51.44;databaseName=221047003;integratedSecurity=false;user=kruthika;password=kruthi@41;
+FileReader fw=new FileReader("db.properties");
+	Properties p=new Properties();
+	p.load(fw);
+1.	String url=p.getProperty("path");
+
+2.		//String connectionUrl = "jdbc:sqlserver://172.16.50.92:1433;" +
+				//"databaseName=BookStore;integratedSecurity=false;user=testUser;password="+p.getProperty("password");
+
 package _221047003;
 
 import org.apache.log4j.Logger;
