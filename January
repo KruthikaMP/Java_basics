@@ -1,0 +1,149 @@
+package _221047003;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Properties;
+import java.util.Scanner;
+
+	 
+
+	class Productimpl {
+	    static Connection connection;
+	void insertvalues() throws SQLException, ClassNotFoundException, IOException 
+	{
+	    Scanner sc=new Scanner(System.in);
+	   /* FileReader fr=new FileReader("db.properties");
+	    Properties p=new Properties();
+	    p.load(fr);
+	    
+	    String connectionUrl = p.getProperty("path");
+	    connection = DriverManager.getConnection(connectionUrl);
+
+	 */
+	    String connectionUrl = "jdbc:sqlserver://172.16.51.44;" +
+	            "databaseName=221047003;trustServerCertificate=true;integratedSecurity=false;user=KRUTHIKA;password=kruthi@41";
+	    connection = DriverManager.getConnection(connectionUrl);
+	    
+	    String sql="insert into Patient values (?,?,?,?)"; 
+	    PreparedStatement preparedStatement=connection.prepareStatement(sql);
+	    
+	    System.out.println("Enter PID");
+	    int pid=sc.nextInt();
+	    preparedStatement.setInt(1, pid);
+	    
+	    System.out.println("Enter Patient name");
+	    String pname=sc.next();
+	    preparedStatement.setString(2,pname);
+	    
+	    System.out.println("Enter Patient Sex");
+	    String psex=sc.next();
+	    preparedStatement.setString(3,psex);
+	    
+	    System.out.println("Enter Patient Disease");
+	    String disease=sc.next();
+	    preparedStatement.setString(4,disease);
+	    
+	    //Execute the query
+	    int n=preparedStatement.executeUpdate();
+	    if(n==1) {
+	    System.out.println("record inserted");
+	    }
+	    else {
+	    System.out.println("record not inserted");
+	    }
+	    //closing
+	    preparedStatement.close();
+	    connection.close();
+	    }
+
+	void deletevalues() throws SQLException, ClassNotFoundException{
+	    Scanner sc=new Scanner(System.in);
+	   
+	    String connectionUrl = "jdbc:sqlserver://172.16.51.44;" +
+	            "databaseName=221047003;integratedSecurity=false;user=kruthika;password=kruthi@41";
+	    connection = DriverManager.getConnection(connectionUrl);
+	    
+	    String sql="Delete from Patient where PID=?";
+	    PreparedStatement preparedStatement=connection.prepareStatement(sql);
+	    System.out.println("Enter PID to delete Patient");
+	    int delpid=sc.nextInt();
+	    preparedStatement.setInt(1,delpid);
+	    int n=preparedStatement.executeUpdate();
+	    if(n==1) {
+	    System.out.println("deleted");
+	    }
+	    else {
+	        System.out.println("not deleted");
+	    }
+	    preparedStatement.close();
+	    connection.close();
+	}
+
+	
+	void viewval() throws SQLException, ClassNotFoundException {
+	    Scanner sc=new Scanner(System.in);
+	          
+	    String connectionUrl = "jdbc:sqlserver://172.16.51.44;" +
+	            "databaseName=221047003;integratedSecurity=false;user=kruthika;password=kruthi@41";
+	    connection = DriverManager.getConnection(connectionUrl);
+	    String sql="select * from Patient where PID =?";
+	    PreparedStatement preparedStatement=connection.prepareStatement(sql);
+	    System.out.println("Enter PID to View Patient");
+	    int pid=sc.nextInt();
+	    preparedStatement.setInt(1, pid);
+	    ResultSet resultSet=preparedStatement.executeQuery();
+	    while(resultSet.next()) {
+	    System.out.println(resultSet.getInt("Pid")+" "+resultSet.getString("Pname")+" "+resultSet.getString("Psex")+" "+resultSet.getString("Disease"));
+	    }
+	    resultSet.close();
+	    preparedStatement.close();
+	    connection.close();
+	    }
+	}
+	
+==================================================
+package _221047003;
+//import java.sql.Connection;
+//import java.sql.DriverManager;
+//import java.sql.PreparedStatement;
+//import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
+public class Main {
+	    
+	        public static void main(String[] args)throws Exception {
+	        Productimpl p=new Productimpl();
+	        Scanner sc=new Scanner(System.in);
+	        System.out.println("Enter your choice 1.insert 2.delete 3.View");
+	        int  n=sc.nextInt();
+	        if(n==1) {
+	            p.insertvalues();
+	        }
+	        else if(n==2) {
+	            p.deletevalues();
+	        }
+	        else if(n==3) {
+	            p.viewval();
+	        }
+	        
+	    }
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
